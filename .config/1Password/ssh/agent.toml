@@ -1,3 +1,0 @@
-# Use the authentication key from my Personal vault
-[[ssh-keys]]
-vault = "Personal"
