@@ -47,7 +47,7 @@ XDG_STATE_HOME="$HOME/.local/state"
 echo "Creating required directory tree..."
 mkdir -p "$XDG_CACHE_HOME"/{tlrc,zsh}
 mkdir -p "$XDG_CONFIG_HOME"/git/local
-mkdir -p "$XDG_DATA_HOME"/{dotnet,go,tmux,zoxide}
+mkdir -p "$XDG_DATA_HOME"/{go,tmux,zoxide}
 mkdir -p "$XDG_STATE_HOME"/{less,zsh}
 echo '...done'
 
