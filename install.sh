@@ -35,7 +35,7 @@ if ! command -v brew &>/dev/null; then
 fi
 
 echo 'Installing dotfiles...'
-git clone --recursive https://github.com/djamseed/dotfiles "$HOME/.dotfiles" && cd "$HOME/.dotfiles"
+git clone --recursive https://github.com/RehaanKhodabocus/dotfiles "$HOME/.dotfiles" && cd "$HOME/.dotfiles"
 
 # Default XDG paths
 XDG_CACHE_HOME="$HOME/.cache"
