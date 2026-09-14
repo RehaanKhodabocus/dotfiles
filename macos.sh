@@ -1,74 +1,35 @@
 #!/bin/bash
+#
+# macos.sh - Apply macOS settings, then reboot.
+#
+# Apps are installed from the Brewfile (see setup.sh), not here.
 
-# Ask for the password once at the beginning
-echo "Please enter your admin password:"
-read -s password
+# -- password ------------------------------------------------------------------
+# Ask for the password once. A "keep sudo alive" loop doesn't work reliably
+# (`brew` resets the sudo timestamp every time it runs), so sudo gets an askpass
+# helper that answers with this password instead. The password lives in a
+# private temp folder that is deleted when the script exits.
+
+SETUP_TMP="$(mktemp -d)"
+trap 'rm -rf "$SETUP_TMP"' EXIT
+chmod 700 "$SETUP_TMP"
+
+read -r -s -p "Please enter your admin password: " password < /dev/tty
 echo
+(umask 077 && printf '%s\n' "$password" > "$SETUP_TMP/password")
+unset password
 
-# Validate password and keep sudo session alive
-echo "$password" | sudo -S -v
-if [ $? -ne 0 ]; then
+cat > "$SETUP_TMP/askpass" <<EOF
+#!/bin/sh
+cat "$SETUP_TMP/password"
+EOF
+chmod 700 "$SETUP_TMP/askpass"
+export SUDO_ASKPASS="$SETUP_TMP/askpass"
+
+if ! sudo -k -A true 2>/dev/null; then
     echo "Incorrect password. Exiting."
     exit 1
 fi
-
-# Keep sudo session alive in the background
-while true; do
-    sudo -n true
-    sleep 50
-    kill -0 "$$" || exit
-done 2>/dev/null &
-
-echo "Updating Homebrew"
-brew update
-
-# Installing applications
-echo "Installing Applications"
-echo "Installing Zen Browser"
-brew install --cask zen
-
-echo "Installing Whatsapp"
-brew install --cask whatsapp
-
-echo "Installing Obsidian"
-brew install --cask obsidian
-
-echo "Installing Free Download Manager"
-brew install --cask free-download-manager
-
-echo "Installing Ghostty"
-brew install --cask ghostty
-
-echo "Installing Visual Studio Code"
-brew install --cask visual-studio-code
-
-echo "Installing Discord"
-brew install --cask discord
-
-echo "Installing NTFS Support (Mounty)"
-brew install --cask macfuse
-brew install gromgit/fuse/ntfs-3g-mac
-brew install --cask mounty
-
-echo "Installing IINA"
-brew install --cask iina
-
-echo "Installing MesloLG Nerd Font"
-brew install --cask font-meslo-lg-nerd-font
-
-echo "Installing OBS"
-brew install --cask obs
-
-echo "Installing Logitech G Hub"
-brew install --cask logitech-g-hub
-
-echo "Installing Zotero"
-brew install --cask zotero
-
-echo "Installing Aerospace"
-brew install --cask nikitabobko/tap/aerospace
-
-echo "All applications have been installed."
 
 # Changing Computer Settings
 echo ""
@@ -139,9 +100,9 @@ killall Finder
 killall Dock
 
 echo ""
-printf '\u2728\e[1;33m Installation completed! \u2728\e[m\n'
+printf '✨\033[1;33m Settings applied! \033[m✨\n'
 echo ""
-read -r -p "Press any key to reboot your computer: "
+read -r -p "Press Enter to reboot your computer: " < /dev/tty
 
-# Use the stored password for reboot
-echo "$password" | sudo -S reboot
+# Uses the password entered at the start
+sudo -A reboot
