@@ -33,3 +33,11 @@ alias gb="git branch"
 export PATH="$HOME/.local/bin:$PATH"
 
 eval "$(zoxide init zsh)"
+
+# Plugins (installed by the Brewfile). Syntax highlighting must load last.
+brew_prefix="${HOMEBREW_PREFIX:-/opt/homebrew}"
+[ -r "$brew_prefix/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] \
+    && source "$brew_prefix/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+[ -r "$brew_prefix/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" ] \
+    && source "$brew_prefix/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
+unset brew_prefix

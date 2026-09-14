@@ -30,6 +30,8 @@ brew 'tlrc'
 brew 'tmux'
 brew 'vivid'
 brew 'zoxide'
+brew 'zsh-autosuggestions'
+brew 'zsh-fast-syntax-highlighting'
 
 cask 'claude'
 cask 'discord'
