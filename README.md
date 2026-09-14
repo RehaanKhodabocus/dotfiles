@@ -2,43 +2,125 @@
 
 ![banner](banner.png)
 
-This repository hosts my personal dotfiles for macOS, using the following combo:
+My personal dotfiles for macOS, using:
 
-- [Aerospace](https://github.com/nikitabobko/AeroSpace)
+- [AeroSpace](https://github.com/nikitabobko/AeroSpace)
 - [Ghostty](https://ghostty.org)
-- [Zsh](https://zsh.org/)
-- [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
+- [Zsh](https://zsh.org/) + [Starship](https://starship.rs)
 - [tmux](https://github.com/tmux/tmux)
 - [Neovim](https://neovim.io)
 
-## Install
+## Setting up a new Mac
+
+### 1. Before formatting the old Mac
+
+- Push any config changes (see [Saving config changes](#saving-config-changes)).
+- Remove unwanted apps from the `Brewfile` and push.
+- Export Raycast settings: Raycast → Settings → Advanced → Export.
+- Back up your files and `~/.ssh`.
+
+### 2. Run the setup script
+
+On the new Mac, open Terminal and run:
 
 ```sh
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/djamseed/dotfiles/main/install.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/RehaanKhodabocus/dotfiles/main/setup.sh)"
 ```
 
-This will install Homebrew packages and create symlinks from this repo to your home directory.
+It asks for your password **once**, then:
 
-### Sensible macOS defaults
+1. Installs Homebrew (and the Xcode Command Line Tools, which include git).
+2. Clones this repo to `~/dotfiles`.
+3. Symlinks the configs into place (see [What gets linked](#what-gets-linked)).
+   Anything already there is renamed to `<name>.bak.<timestamp>`, not deleted.
+4. Installs everything in the `Brewfile`.
 
-The install script will also run `macos.sh`, which provide sensible defaults when setting up a new Mac.
+The script is safe to re-run; finished steps are skipped. macFUSE and
+Logitech G Hub may still show macOS "Allow" pop-ups. Approve those in
+System Settings → Privacy & Security.
 
-## Customizing
+### 3. Finish up
 
-Update ~/.config/git/local/user with your email and name. It should look something like this:
+Quit and reopen Terminal, then:
 
 ```sh
-[user]
-    email = john@example.com
-    name = John Doe
+git config --global user.name  "Your Name"
+git config --global user.email "you@example.com"
+gh auth login    # GitHub.com → HTTPS → log in with browser
 ```
 
-Use a .privaterc file to save things (env vars, commands, etc...) you don't want to commit to a public repo. It will be sourced if present. This can look something like that:
+Things the `Brewfile` doesn't cover:
+
+- VirtualBox (download from virtualbox.org)
+- Claude Code and Codex
+- `pip3 install --user pillow pypdf`
+- `brew install go && go install golang.org/x/tools/gopls@latest`
+
+Then open each app once:
+
+- **Neovim:** plugins install on first launch.
+- **tmux:** plugins install automatically.
+- **AeroSpace:** allow it in System Settings → Privacy & Security → Accessibility.
+- **Raycast:** import your settings export.
+
+### 4. macOS settings
+
+Run this last. It asks for your password once, applies Dock, Finder,
+Desktop and menu bar settings, then reboots when you press Enter:
 
 ```sh
-export SOME_API_KEY="f799a61172c44960a2ad2b297ed7475d"
+bash ~/dotfiles/macos.sh
 ```
 
-## Misc
+## What gets linked
 
-For my Neovim setup, see [here](https://github.com/djamseed/nvim).
+| Repo | Linked to |
+|---|---|
+| `.config/aerospace` | `~/.config/aerospace` |
+| `.config/btop` | `~/.config/btop` |
+| `.config/fastfetch` | `~/.config/fastfetch` |
+| `.config/ghostty` | `~/.config/ghostty` |
+| `.config/lazygit` | `~/.config/lazygit` |
+| `.config/nvim` | `~/.config/nvim` |
+| `.config/ripgrep` | `~/.config/ripgrep` |
+| `.config/starship.toml` | `~/.config/starship.toml` |
+| `.config/tmux` | `~/.config/tmux` |
+| `.zshrc` | `~/.zshrc` |
+
+The other files in `.config` (`bat`, `git`, `tldr`, `zsh`, `.curlrc`) are
+not linked by `setup.sh`.
+
+## Saving config changes
+
+Because the configs are symlinked, editing `~/.config/<app>` edits the file
+in this repo directly:
+
+```sh
+cd ~/dotfiles
+git status    # what changed
+git diff      # the exact changes
+git add -A && git commit -m "what I changed" && git push
+```
+
+### Adding a new config
+
+1. Move it into the repo: `mv ~/.config/<app> ~/dotfiles/.config/<app>`
+2. Add `<app>` to the `CONFIGS` list at the top of `setup.sh`.
+3. Re-run `bash ~/dotfiles/setup.sh` to create the link, then commit and push.
+
+Never commit secrets. This repo is public. For example, `~/.config/gh`
+holds your GitHub login token.
+
+## Files
+
+| File | Purpose |
+|---|---|
+| `setup.sh` | New Mac setup: Homebrew, clone, symlinks, Brewfile |
+| `macos.sh` | macOS settings, then reboot |
+| `Brewfile` | Homebrew apps and command-line tools |
+| `hyprland.conf`, `linux.sh` | Linux setup (not used on macOS) |
+
+## Credits
+
+Based on [djamseed/dotfiles](https://github.com/djamseed/dotfiles). The Neovim
+config started from [djamseed/nvim](https://github.com/djamseed/nvim).
