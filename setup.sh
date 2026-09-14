@@ -19,7 +19,7 @@ REPO_URL="https://github.com/RehaanKhodabocus/dotfiles.git"
 DOTFILES="$HOME/dotfiles"
 
 # Entries in dotfiles/.config that get linked into ~/.config
-CONFIGS=(aerospace btop fastfetch ghostty lazygit nvim ripgrep starship.toml tmux)
+CONFIGS=(aerospace btop fastfetch ghostty git lazygit nvim ripgrep starship.toml tmux)
 
 info() { printf '\n\033[1;34m==>\033[0m \033[1m%s\033[0m\n' "$*"; }
 warn() { printf '\033[1;33mWarning:\033[0m %s\n' "$*" >&2; }

@@ -1,5 +1,0 @@
-#
-# Remove a directory and its contents
-#
-
-rm -rf "$@"

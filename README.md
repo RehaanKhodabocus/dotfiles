@@ -1,7 +1,5 @@
 # dotfiles
 
-![banner](banner.png)
-
 My personal dotfiles for macOS, using:
 
 - [AeroSpace](https://github.com/nikitabobko/AeroSpace)
@@ -80,15 +78,13 @@ bash ~/dotfiles/macos.sh
 | `.config/btop` | `~/.config/btop` |
 | `.config/fastfetch` | `~/.config/fastfetch` |
 | `.config/ghostty` | `~/.config/ghostty` |
+| `.config/git` | `~/.config/git` |
 | `.config/lazygit` | `~/.config/lazygit` |
 | `.config/nvim` | `~/.config/nvim` |
 | `.config/ripgrep` | `~/.config/ripgrep` |
 | `.config/starship.toml` | `~/.config/starship.toml` |
 | `.config/tmux` | `~/.config/tmux` |
 | `.zshrc` | `~/.zshrc` |
-
-The other files in `.config` (`bat`, `git`, `tldr`, `zsh`, `.curlrc`) are
-not linked by `setup.sh`.
 
 ## Saving config changes
 
@@ -118,7 +114,6 @@ holds your GitHub login token.
 | `setup.sh` | New Mac setup: Homebrew, clone, symlinks, Brewfile |
 | `macos.sh` | macOS settings, then reboot |
 | `Brewfile` | Homebrew apps and command-line tools |
-| `hyprland.conf`, `linux.sh` | Linux setup (not used on macOS) |
 
 ## Credits
 
