@@ -19,7 +19,7 @@ REPO_URL="https://github.com/RehaanKhodabocus/dotfiles.git"
 DOTFILES="$HOME/dotfiles"
 
 # Entries in dotfiles/.config that get linked into ~/.config
-CONFIGS=(aerospace btop fastfetch ghostty tmux nvim fish starship.toml)
+CONFIGS=(aerospace btop fastfetch ghostty tmux nvim starship.toml)
 
 info() { printf '\n\033[1;34m==>\033[0m \033[1m%s\033[0m\n' "$*"; }
 warn() { printf '\033[1;33mWarning:\033[0m %s\n' "$*" >&2; }
@@ -137,7 +137,7 @@ cat <<'EOF'
   2. git config --global user.name  "RehaanKhodabocus"
      git config --global user.email "you@example.com"
   3. gh auth login            (GitHub.com -> HTTPS -> browser)
-  4. Install manually: Anaconda, VirtualBox, Claude Code, Codex
+  4. Install manually: VirtualBox, Claude Code, Codex
      pip3 install --user pillow pypdf
      brew install go && go install golang.org/x/tools/gopls@latest
   5. Open nvim once so plugins install.
