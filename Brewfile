@@ -46,3 +46,34 @@ cask 'raycast'
 cask 'spotify'
 cask 'whatsapp'
 
+# ------------------------------------------------------------------------------
+# Added by Claude (2026-09-14): installed on this Mac but missing above.
+# Review and delete anything you don't want on the new Mac.
+# ------------------------------------------------------------------------------
+
+tap 'gromgit/fuse'
+
+brew 'codeburn'
+brew 'gh'
+brew 'gromgit/fuse/ntfs-3g-mac'
+brew 'poppler'
+brew 'python@3.11'
+brew 'starship'
+brew 'tree'
+brew 'tree-sitter-cli'
+brew 'xh'
+
+cask 'db-browser-for-sqlite'
+cask 'dockdoor'
+cask 'font-meslo-lg-nerd-font'
+cask 'free-download-manager'
+cask 'iina'
+cask 'logitech-g-hub'
+cask 'macfuse'
+cask 'mounty'
+cask 'obs'
+cask 'visual-studio-code'
+cask 'vorssaint'
+cask 'zen'
+cask 'zotero'
+
