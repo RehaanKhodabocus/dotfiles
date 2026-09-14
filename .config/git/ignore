@@ -56,3 +56,6 @@ tags
 [._]*.un~
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,vim
+
+# Claude Code local settings
+**/.claude/settings.local.json

@@ -21,6 +21,8 @@ font-family = FiraCode Nerd Font
 font-size = 14
 font-feature = -calt, -dlig, -liga
 bold-color = bright
+#background-opacity=0.8
+#background-blur=20
 
 # -- cursor --------------------------------------------------------------------
 
